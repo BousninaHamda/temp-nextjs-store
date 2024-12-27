@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { LuShoppingCart } from 'react-icons/lu';
+import { fetchCartItems } from '@/utils/actions';
+import { SignInButton } from '@clerk/nextjs';
 
 async function CartButton() {
-  const numItemsInCart = 9;
+  const numItemsInCart = await fetchCartItems();
   return (
     <Button
       asChild
@@ -20,5 +22,15 @@ async function CartButton() {
     </Button>
   );
 }
+
+export const ProductSignInButton = () => {
+  return (
+    <SignInButton mode="modal">
+      <Button type="button" className="mt-8 capitalize">
+        sign in
+      </Button>
+    </SignInButton>
+  );
+};
 
 export default CartButton;

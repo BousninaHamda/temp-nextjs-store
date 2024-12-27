@@ -57,3 +57,24 @@ function validateImageFile() {
       );
     }, 'File must be an image.');
 }
+
+export const reviewSchema = z.object({
+  productId: z.string().refine((value) => value !== '', {
+    message: 'product Id cannot be empty.',
+  }),
+  authorName: z.string().refine((value) => value !== '', {
+    message: 'author name cannot be empty.',
+  }),
+  authorImageUrl: z.string().refine((value) => value !== '', {
+    message: 'author image url cannot be empty.',
+  }),
+  rating: z.coerce
+    .number()
+    .int()
+    .min(1, { message: 'Rating must be at least 1' })
+    .max(5, { message: 'Rating must be at most 5' }),
+  comment: z
+    .string()
+    .min(10, { message: 'comment must be at least 10 characters.' })
+    .max(1000, { message: 'comment must be at most 1000 characters.' }),
+});
